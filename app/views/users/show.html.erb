@@ -1,0 +1,16 @@
+<h1><%=@current_user.name%>'s Playlist</h1>
+
+<table>
+    <thead>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Times Added</th>
+    </thead>
+    <%@playlists.each do |song|%>
+    <tbody>
+        <td><%=song.song.artist%></td>
+        <td><%=song.song.title%></td>
+        <td><%=@count.where(id: song.song.id).length%></td>
+    </tbody>
+    <%end%>
+</table>

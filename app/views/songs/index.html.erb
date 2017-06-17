@@ -1,0 +1,36 @@
+<h1>Hello, <%=@current_user.name%></h1>
+<table>
+    <thead>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>No. Of Times Song Has Been Added</th>
+        <th>Add To Playlist</th>
+    </thead>
+    <%@songs.each do |song|%>
+    <tbody>
+        <td><%=song.artist%></td>
+        <td><a href="/songs/<%=song.id%>"><%=song.title%></a></td>
+        <td><%=@cc.where(id: song.id).length%></td>
+        <td><a href="/playlist/<%=song.id%>" data-method="post"><button>Add</button></a></td>
+    </tbody>
+    <%end%>
+</table>
+<hr>
+<br>
+<hr>
+<h3>Add a song:</h3>
+<form class="" action="/songs" method="post">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+    Title:
+    <input type="text" name="song[title]">
+    Artist:
+    <input type="text" name="song[artist]">
+    <input type="submit" value="Add Song">
+</form>
+<div>
+    <%if flash[:song_errors]%>
+        <%flash[:song_errors].each do |error|%>
+            <p><%=error%></p>
+        <%end%>
+    <%end%>
+</div>
